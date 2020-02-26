@@ -28,3 +28,6 @@ bash go.sh
 bash go.sh
 
 提示下载完毕。
+
+安装完成后，还需要安装polipo，将网络请求转到代理上访问。这里参考：
+https://segmentfault.com/a/1190000013587465
