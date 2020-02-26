@@ -1,0 +1,30 @@
+参考https://www.imcaviare.com/2018-12-18-1/
+适用于国内linux服务器，下载github来源的v2ray速度极慢或下载停止的问题
+用root权限下载安装脚本：
+wget https://install.direct/go.sh
+
+运行脚本
+bash go.sh
+
+发现下载速度极其缓慢。ctrl+C结束下载，用notepad++打开go.sh，发现downloadv2ray()中有如下代码：
+  rm -rf /tmp/v2ray
+  mkdir -p /tmp/v2ray
+  if [[ "${DIST_SRC}" == "jsdelivr" ]]; then
+    DOWNLOAD_LINK="https://cdn.jsdelivr.net/gh/v2ray/dist/v2ray-linux-${VDIS}.zip"
+  else
+    DOWNLOAD_LINK="https://github.com/v2ray/v2ray-core/releases/download/${NEW_VER}/v2ray-linux-${VDIS}.zip"
+  fi
+  
+观察脚本运行中的输出可以发现，下载来源是github。找到/tmp/v2ray文件夹，删除刚刚下载的临时文件v2ray.zip，并将go.sh中上述代码段改为：
+  #rm -rf /tmp/v2ray
+  #mkdir -p /tmp/v2ray
+  #if [[ "${DIST_SRC}" == "jsdelivr" ]]; then
+    DOWNLOAD_LINK="https://cdn.jsdelivr.net/gh/v2ray/dist/v2ray-linux-${VDIS}.zip"
+  #else
+  #  DOWNLOAD_LINK="https://github.com/v2ray/v2ray-core/releases/download/${NEW_VER}/v2ray-linux-${VDIS}.zip"
+  #fi
+
+重新执行：
+bash go.sh
+
+提示下载完毕。
