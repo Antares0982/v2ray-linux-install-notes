@@ -55,11 +55,13 @@ source /etc/profile
 ```
 curl www.google.com
 ```
-在使用完成后应该删除`/etc/polipo/config`以及`/etc/profile`中多余的内容。然后再次重载。并且
+在使用完成后应该删除`/etc/polipo/config`以及`/etc/profile`中多余的内容。
+
+再次重载，并且取消`http_proxy`和`https_proxy`，关闭polipo服务：
 ```
+source /etc/profile
+unset http_proxy
+unset https_proxy
 systemctl disable polipo
 systemctl stop polipo
 ```
-
-
-
